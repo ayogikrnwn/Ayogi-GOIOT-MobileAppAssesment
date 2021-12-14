@@ -7,16 +7,18 @@
  */
 
 import React from 'react';
+import { Text } from 'react-native';
 import {SplashScreen} from './pages';
-import { Router } from './Router';
+import {  Ruter } from './Router';
 import { NavigationContainer } from '@react-navigation/native';
+
 
 
 const App = () => {
   return (
-    <NavigationContainer>
-    <Router />
-     </NavigationContainer>  
+   <NavigationContainer>
+     <Ruter />
+   </NavigationContainer>
   );
 };
 
