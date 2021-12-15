@@ -1,12 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import BlueVersion from './BlueVersion';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Button = ({text, type, onPress}) => {
-    if (type === 'bluevers') {
-        return <BlueVersion onPress={onPress} text={text} />;
-      }
+const ButtonAlternate = ({text}) => {
     return (
         <TouchableOpacity style={styles.container}>
             <Text style={styles.text}>{text}</Text>
@@ -14,15 +10,15 @@ const Button = ({text, type, onPress}) => {
     )
 }
 
-export default Button;
+export default ButtonAlternate;
 
 const styles = StyleSheet.create({
     container:{
         backgroundColor: '#75E166',
-        paddingVertical: 20,
-        paddingHorizontal:20,
-      
+        paddingVertical: 10,
+        paddingHorizontal: 10,
     borderRadius: 10,
+
     },
     text: {
         fontFamily: 'Roboto-Bold',

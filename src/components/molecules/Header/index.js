@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Gap } from '../..';
 
-const Header = ({date, greet, name }) => {
+const Header = ({date, greet, name, title }) => {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -12,6 +12,12 @@ const Header = ({date, greet, name }) => {
             <Text style={styles.greet}>{greet}</Text>
             <Gap width={5} />
             <Text style={styles.name}>{name}</Text>
+                <View style={{flex: 1}}>
+                <Text style={styles.title}>{title}</Text>
+                
+                </View>
+                
+            
             </View>
             </View>
            
@@ -32,7 +38,10 @@ const styles = StyleSheet.create({
     },
     content: {
         paddingLeft: 20,
-        paddingTop: 10
+        paddingTop: 10,
+      
+        flex: 1,
+       
     },
     greetings: {
         flexDirection: 'row',
@@ -50,6 +59,12 @@ const styles = StyleSheet.create({
     name: {
         fontFamily: 'Roboto-Bold',
         fontSize: 18,
+        color: 'black'
+    },
+    title: {
+textAlign : 'center',
+fontFamily: 'Roboto-Bold',
+        fontSize:24,
         color: 'black'
     }
 })

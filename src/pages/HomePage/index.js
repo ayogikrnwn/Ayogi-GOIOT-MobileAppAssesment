@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
-import { ILHouseBdg, ILHouseDpk, PicHouseOne, PicHouseTwo } from '../../assets';
+import { HouseMenuActive, ILHouseBdg, ILHouseDpk, PicHouseOne, PicHouseTwo } from '../../assets';
 import { Card, Gap, Header } from '../../components';
 
 const HomePage = () => {
@@ -22,6 +22,7 @@ const HomePage = () => {
                 <Card name="Dummy House 1" address="Bandung, West Java" img={ILHouseBdg} />
                 <Gap height={13} />
                 <Card name="Dummy House 2" address="Depok, West Java" img={ILHouseDpk} />
+              
             </View>
         </View>
     )

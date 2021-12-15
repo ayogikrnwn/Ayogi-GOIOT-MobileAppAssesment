@@ -3,9 +3,13 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Gap } from '../..';
 import { ILHouseBdg } from '../../../assets';
+import PaymentCard from './PaymentCard';
 
-const Card = ({name,address,img}) => {
-    return (
+const Card = ({name,address,img, type, onPress}) => {
+    if (type === 'payment-card') {
+        return <PaymentCard name={name} onPress={onPress} img={img} />;
+      }
+      return (
         <View style={styles.container}>
             <Image source={img} style={styles.img}/>
             <Gap width={10} />
@@ -20,6 +24,8 @@ const Card = ({name,address,img}) => {
         </View>
     )
 }
+  
+
 
 export default Card;
 
