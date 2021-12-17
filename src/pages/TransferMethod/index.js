@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { ICMandiri } from '../../assets';
 import { Button, Gap, Header, Input } from '../../components';
 
-const TransferMethod = () => {
+const TransferMethod = ({navigation}) => {
     return (
         <View style={{flex: 1}}>
             <Header title="Transfer Bank Payment" />
@@ -26,7 +26,7 @@ const TransferMethod = () => {
             <Gap height={5} />
             <Button text="Procceed" />
             </View>
-            <Gap height={20} />
+            <Gap height={20} onPress={()=> navigation.navigate('DonePayment')} />
            <Text>**this page is dummy*</Text>
         </View>
     )

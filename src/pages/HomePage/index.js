@@ -1,13 +1,53 @@
-import React from 'react'
+import moment from 'moment';
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { HouseMenuActive, ILHouseBdg, ILHouseDpk, PicHouseOne, PicHouseTwo } from '../../assets';
 import { Card, Gap, Header } from '../../components';
+import { getData } from '../../utils';
+import { Fire } from '../config';
 
-const HomePage = () => {
+
+
+const HomePage = ({navigation}) => {
+   
+    const [house, setHouse] = useState([]);
+    const [profile, setProfile] = useState({
+        fullName: '',
+       
+      });
+
+      useEffect(() => {
+        getData('user').then((res) => {
+          console.log('data user: ', res);
+          const data = res;
+          data.photo = {uri: res.photo};
+          setProfile(res);
+        });
+      }, []);
+
+      const date = moment()
+      .utcOffset('+07:00')
+      .format('DD-MMMM-YYYY');
+
+
+    const getHouse = () => {
+       Fire.database().ref(`house/`).on('value', snapshot => {
+            let responselist = Object.values(snapshot.val())
+            setHouse(responselist)
+            console.log(snapshot.val())
+            // setLoading(true);
+        });
+        }
+        
+        useEffect(() => {
+          getHouse();
+        }, []);
+
+
     return (
         <View style={styles.container}>
-            <Header date="05 Dec 2021" greet="Hello,"  name="Ayogi Kurniawan" />
+            <Header date={date} greet="Hello,"  name={profile.fullName} />
             <Gap height={20} />
             <View style={styles.content}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -19,11 +59,24 @@ const HomePage = () => {
                 <Gap height={15} />
                 <Text style={styles.text}>List House</Text>
                 <Gap height={15} />
-                <Card name="Dummy House 1" address="Bandung, West Java" img={ILHouseBdg} />
-                <Gap height={13} />
-                <Card name="Dummy House 2" address="Depok, West Java" img={ILHouseDpk} />
-              
-            </View>
+                </View>
+                <View style={{paddingHorizontal: 15}}>
+                {house.map(item => {
+            return (
+              <Card
+                key={`house-${item.id}`}
+                name={item.name}
+                address={item.address}
+                img={ILHouseDpk}
+                status={item.status}
+                onPress={()=> navigation.navigate('HouseInfo', item)}
+              />
+            );
+        })}
+           
+                </View>
+               
+            
         </View>
     )
 }

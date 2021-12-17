@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 
-const Input = ({label}) =>{
+const Input = ({label, value, onChangeText, secureTextEntry}) =>{
 
 
   return (
@@ -14,9 +14,9 @@ const Input = ({label}) =>{
         // onFocus={onFocusForm}
         // onBlur={onBlurForm}
         style={styles.input}
-        // value={value}
-        onChangeText
-        // secureTextEntry={secureTextEntry}
+        value={value}
+        onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
         // editable={!disable}
         // selectTextOnFocus={!disable}
         // multiline={multiline}

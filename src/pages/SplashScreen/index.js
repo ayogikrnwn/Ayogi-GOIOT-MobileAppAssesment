@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import {AppLogos} from '../../assets';
 
-const SplashScreen = () => {
+const SplashScreen = ({navigation}) => {
+    useEffect(() => {
+
+          setTimeout(() => {
+          
+              navigation.replace('Register');
+    
+          }, 3000);
+       
+    
+        
+      }, [navigation]);
+    
     return (
         <View style={styles.container}>
          

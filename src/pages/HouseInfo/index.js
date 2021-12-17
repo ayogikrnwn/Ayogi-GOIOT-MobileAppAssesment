@@ -1,18 +1,34 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ICLamp, ICLine, ICWater, ICWifi } from '../../assets';
 import { Button, ButtonAlternate, Gap, Header } from '../../components';
+import { storeData } from '../../utils';
 
-const HouseInfo = () => {
+const HouseInfo = ({route, navigation}) => {
+    const itemHouse = route.params;
+    const updateInfo = () => {
+        
+        const data = {
+            name: itemHouse.name,
+            address: itemHouse.address,
+            electricBills: itemHouse.electricBills,
+            pdamBill: itemHouse.pdamBill,
+            wifiBill: itemHouse.wifiBill,
+            id: itemHouse.id,
+            status: itemHouse.status,
+          }
+          storeData('house', data);
+        navigation.navigate('UpdateHouseInfo')
+    }
     return (
         <View style={{flex: 1}}>
-           
-            <Header title="House Information" />
+           <ScrollView>
+           <Header title="House Information" />
             <Gap height={10} />
             <View style={{paddingHorizontal:20}}>
             <View style={styles.content}>
-            <Text style={styles.title}>Dummy House</Text>
-            <Text style={styles.desc}>Bandung, West Java</Text>
+            <Text style={styles.title}>{itemHouse.name}</Text>
+            <Text style={styles.desc}>{itemHouse.address}</Text>
             <Gap height={25} />
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <ICLamp />
@@ -35,9 +51,9 @@ const HouseInfo = () => {
             <ICWifi />
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={styles.desc}>1.000.000</Text>
-                <Text style={styles.desc}>1.000.000</Text>
-                <Text style={styles.desc}>300.000</Text>
+            <Text style={styles.desc}>Rp. {itemHouse.electricBills}</Text>
+                <Text style={styles.desc}>Rp.  {itemHouse.pdamBill}</Text>
+                <Text style={styles.desc}>Rp. {itemHouse.wifiBill}</Text>
             </View>
             <Gap height={20} />
             <ICLine />
@@ -47,18 +63,17 @@ const HouseInfo = () => {
             <ButtonAlternate text="Paid" />
             </View>
            
-            <Text style={styles.desc}>Rp 2.300.000</Text>
+            <Text style={styles.desc}>{itemHouse.electricBills + itemHouse.pdamBill + itemHouse.wifiBill}</Text>
             </View>
             </View>
             <Gap height={20} />
             <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <Button type="bluevers" text="Edit Profile" />
-            <Button  text="Edit Profile" />
+            <Button type="bluevers" text="Update Info"  onPress={updateInfo} />
+            <Button  text="Pay Bill" onPress={()=> navigation.navigate('Payment', itemHouse)} />
             </View>
             
-           
-           
-           
+           </ScrollView>
+            
         </View>
     )
 }

@@ -1,11 +1,67 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { showMessage } from 'react-native-flash-message';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button, Gap, Input } from '../../components';
+import { Button, Gap, Input, Loading } from '../../components';
+import { storeData, useForm } from '../../utils';
+import { Fire } from '../config';
 
-const Register = () => {
+
+
+const Register = ({navigation}) => {
+
+   
+  const [loading, setLoading] = useState(false)
+    const [form, setForm] = useForm({
+    fullName: '',
+    address: '',
+    email: '',
+    password: '',
+    })
+
+    const onContinue = () => {
+        console.log(form);
+    
+        setLoading(true);
+        Fire.auth()
+          .createUserWithEmailAndPassword(form.email, form.password)
+          .then((success) => {
+            setLoading(false);
+            setForm('reset');
+    
+            const data = {
+              fullName: form.fullName,
+              address: form.address,
+              email: form.email,
+              uid: success.user.uid
+            }
+            Fire.database()
+              .ref('users/' + success.user.uid + '/')
+              .set(data);
+    
+            storeData('user', data);
+            navigation.navigate('Login', data);
+            console.log('register success :', success);
+          })
+          .catch((error) => {
+              console.log(error)
+            const errorMessage = error.message;
+            setLoading(false);
+            showMessage({
+              message: errorMessage,
+              type: 'default',
+              backgroundColor: 'red',
+              color: 'white'
+            });
+          });
+      };  
+    
+
     return (
-        <View style={styles.container}>
+      <>
+       <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+     
             <View style={styles.content}>
                 <View style={styles.header}>
                 <Text style={styles.title}>Register</Text>
@@ -13,27 +69,35 @@ const Register = () => {
                     explore the house</Text>
                 </View>
                 <View style={styles.form}>
-                <Input label="Full Name"/>
+                <Input label="Full Name" value={form.fullName}
+              onChangeText={(value) => setForm('fullName', value)}/>
                 <Gap height={12} />
-                <Input label="Address"/>
+                <Input label="Address" value={form.address}
+              onChangeText={(value) => setForm('address', value)}/>
                 <Gap height={12} />
-                <Input label="Email"/>
+                <Input label="Email" value={form.email}
+              onChangeText={(value) => setForm('email', value)}/>
                 <Gap height={12} />
-                <Input label="Password"/>
+                <Input label="Password" value={form.password} secureTextEntry
+              onChangeText={(value) => setForm('password', value)}/>
                 <Gap height={12} />
-                <Button text="Register"/>
+                <Button text="Register" onPress={onContinue}/>
                 <Gap height={12} />
                 </View>
                 <View style={styles.footer}>
                 <Text>Already Have Account?</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate('Login')}>
                     <Text>Login Now</Text>
                 </TouchableOpacity>
                 </View>
                
             </View>
             
-        </View>
+       
+      </ScrollView>
+      </View>
+              {loading && <Loading />}
+              </>
     )
 }
 

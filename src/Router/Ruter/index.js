@@ -81,6 +81,11 @@ const Ruter = () => {
         component={TransferMethod}
         options={{headerShown: false}}
       />
+       <Stack.Screen
+        name="DonePayment"
+        component={DonePayment}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="UpdateHouseInfo"
         component={UpdateHouseInfo}

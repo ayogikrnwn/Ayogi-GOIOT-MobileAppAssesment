@@ -5,23 +5,24 @@ import { Gap } from '../..';
 import { ILHouseBdg } from '../../../assets';
 import PaymentCard from './PaymentCard';
 
-const Card = ({name,address,img, type, onPress}) => {
+const Card = ({name,address,img, type, onPress, status}) => {
     if (type === 'payment-card') {
         return <PaymentCard name={name} onPress={onPress} img={img} />;
       }
       return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Image source={img} style={styles.img}/>
             <Gap width={10} />
             <View>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.address}>{address}</Text>
+            <Text style={styles.address}>{status}</Text>
             </View>
-            <TouchableOpacity style={styles.btn}>
+            <View style={styles.btn}>
                 <Text style={styles.fwd}>></Text>
-            </TouchableOpacity>
+            </View>
 
-        </View>
+        </TouchableOpacity>
     )
 }
   

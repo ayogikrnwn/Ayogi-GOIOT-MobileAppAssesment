@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { ICMandiri, ICQrisCode } from '../../assets';
 import { Button, Gap, Header, Input } from '../../components';
 
-const QrisMethod = () => {
+const QrisMethod = ({navigation}) => {
     return (
         <View style={{flex: 1}}>
             <Header title="QRIS Payment" />
@@ -18,7 +18,7 @@ const QrisMethod = () => {
             <Gap height={75} />
             <Text style={{textAlign: 'center'}}>Already Transfer?</Text>
             <Gap height={5} />
-            <Button text="Procceed" />
+            <Button text="Procceed" onPress={()=> navigation.navigate('DonePayment')}/>
             </View>
             <Gap height={20} />
            <Text>**this page is dummy*</Text>
