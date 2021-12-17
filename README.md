@@ -1,8 +1,8 @@
-#MyHouz
-#House Management App
+MyHouz
+House Management App
 
-#Designed & Developed by Ayogi Kurniawan
-#For Assesment Test GoIOT.id (Duhans Technology)
+Designed & Developed by Ayogi Kurniawan
+For Assesment Test GoIOT.id (Duhans Technology)
 
 #What's work?
 - Get List House
